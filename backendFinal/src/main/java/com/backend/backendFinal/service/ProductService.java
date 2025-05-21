@@ -2,19 +2,21 @@ package com.backend.backendFinal.service;
 
 import com.backend.backendFinal.model.dto.ProductDto;
 import com.backend.backendFinal.model.dto.ProductPropertyDto;
+import com.backend.backendFinal.model.dto.requestDto.ProductRequestDto;
+import com.backend.backendFinal.model.dto.responseDto.ProductResponseDto;
 import com.backend.backendFinal.model.entity.Product;
 import jakarta.persistence.Id;
 
 import java.util.List;
 
 public interface ProductService {
-    ProductDto getById(Integer id);
-    ProductDto add(Product product);
-    ProductDto update(Product product);
+    ProductResponseDto getById(Integer id);
+    ProductResponseDto add(ProductRequestDto productRequestDto);
+    ProductResponseDto update(ProductRequestDto productRequestDto);
     void delete(Integer id);
 
-    List<ProductDto> getProductByBrandId(Integer id);
-    List<ProductDto> getProductByCategoryId(Integer id);
+    List<ProductResponseDto> getProductByBrandId(Integer id);
+//   List<ProductPropertyDto> getProductPropertyByProduct(Integer id);
 
 
 }

@@ -1,7 +1,8 @@
 package com.backend.backendFinal.service.impl;
 
 import com.backend.backendFinal.mapper.ShopMapper;
-import com.backend.backendFinal.model.dto.ShopDto;
+import com.backend.backendFinal.model.dto.requestDto.ShopRequestDto;
+import com.backend.backendFinal.model.dto.responseDto.ShopResponseDto;
 import com.backend.backendFinal.model.entity.Shop;
 import com.backend.backendFinal.repository.ShopRepository;
 import com.backend.backendFinal.service.ShopService;
@@ -13,19 +14,28 @@ import org.springframework.stereotype.Service;
 public class ShopServiceImpl implements ShopService {
     private final ShopRepository shopRepository;
     private final ShopMapper shopMapper;
-    public ShopDto getShopById(Integer id){
-        return shopMapper.toShopDto(shopRepository.findById(id).orElseThrow(NullPointerException::new));
+    public ShopResponseDto getShopById(Integer id){
+       Shop shop = shopRepository.findById(id).orElseThrow(NullPointerException::new);
+       ShopResponseDto shopResponseDto =shopMapper.toEntityMapResponseDto(shop);
+       return shopResponseDto;
+    }
 
+
+    @Override
+    public ShopResponseDto add(ShopRequestDto shopRequestDto) {
+        Shop shop = shopMapper.toRequestDtoMapEntity(shopRequestDto);
+        shopRepository.save(shop);
+        ShopResponseDto shopResponseDto =shopMapper.toEntityMapResponseDto(shop);
+        return shopResponseDto;
     }
 
     @Override
-    public ShopDto add(Shop shop) {
-        return shopMapper.toShopDto(shopRepository.save(shop));
-    }
+    public ShopResponseDto update(ShopRequestDto shopRequestDto) {
+        Shop shop =shopMapper.toRequestDtoMapEntity(shopRequestDto);
+        shopRepository.save(shop);
+        ShopResponseDto shopResponseDto =shopMapper.toEntityMapResponseDto(shop);
+        return shopResponseDto;
 
-    @Override
-    public ShopDto update(Shop shop) {
-        return shopMapper.toShopDto(shopRepository.save(shop));
     }
 
     @Override

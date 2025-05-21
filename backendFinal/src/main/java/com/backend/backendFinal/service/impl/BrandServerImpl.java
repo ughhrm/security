@@ -1,7 +1,7 @@
 package com.backend.backendFinal.service.impl;
 
 import com.backend.backendFinal.mapper.BrandMapper;
-import com.backend.backendFinal.model.dto.BrandDto;
+import com.backend.backendFinal.model.dto.responseDto.BrandResponseDto;
 import com.backend.backendFinal.model.entity.Brand;
 import com.backend.backendFinal.repository.BrandRepository;
 import com.backend.backendFinal.service.BrandService;
@@ -14,18 +14,18 @@ public class BrandServerImpl implements BrandService {
     private final BrandRepository brandRepository;
     private final BrandMapper brandMapper;
     @Override
-    public BrandDto getBrandById(Integer id) {
-        return brandMapper.toBrandDto(brandRepository.findById(id).orElseThrow(NullPointerException::new));
+    public BrandResponseDto getBrandById(Integer id) {
+        return brandMapper.toEntityMapResponseDto(brandRepository.findById(id).orElseThrow(NullPointerException::new));
     }
 
     @Override
-    public BrandDto add(Brand brand) {
-        return brandMapper.toBrandDto(brandRepository.save(brand));
+    public BrandResponseDto add(Brand brand) {
+        return brandMapper.toEntityMapResponseDto(brandRepository.save(brand));
     }
 
     @Override
-    public BrandDto update(Brand brand) {
-        return brandMapper.toBrandDto(brandRepository.save(brand));
+    public BrandResponseDto update(Brand brand) {
+        return brandMapper.toEntityMapResponseDto(brandRepository.save(brand));
     }
 
     @Override

@@ -39,7 +39,7 @@ public class AuthServiceImpl implements AuthService {
     private Optional<Authentication> getAuthenticationBearer(String header){
         String token = header.substring("Bearer".length()).trim();
         Claims claims =jwtService.verifyToken(token);
-        log.info("claims parsed {}",claims);
+        log.info("claims pa rsed {}",claims);
         if (claims.getExpiration().before(new Date())){
             return Optional.empty();
         }

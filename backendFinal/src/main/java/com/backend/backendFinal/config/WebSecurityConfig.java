@@ -1,6 +1,4 @@
 package com.backend.backendFinal.config;
-
-import com.backend.backendFinal.filter.JwtAuthFilter;
 import com.backend.backendFinal.filter.JwtAuthFilterConfigurerAdapter;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +12,6 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -41,7 +38,15 @@ WebSecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth ->
 
-                        auth.requestMatchers("/categories","/categories/*").hasAuthority("ADMIN")
+                        auth
+                                .requestMatchers("/api/users/**").permitAll()
+                                .requestMatchers("/categories","/categories/*").hasAuthority("ADMIN")
+                                .requestMatchers(
+                                        "/v3/api-docs/**",
+                                        "/swagger-ui/**",
+                                        "/swagger-ui.html"
+                                ).permitAll()
+
                                 .anyRequest()
                                 .authenticated()
                 ).exceptionHandling(exceptionHandling -> exceptionHandling

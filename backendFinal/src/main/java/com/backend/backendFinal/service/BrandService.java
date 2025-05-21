@@ -1,14 +1,15 @@
 package com.backend.backendFinal.service;
 
 import com.backend.backendFinal.model.dto.BrandDto;
+import com.backend.backendFinal.model.dto.responseDto.BrandResponseDto;
 import com.backend.backendFinal.model.entity.Brand;
 
 public interface BrandService {
-    BrandDto getBrandById(Integer id);
+    BrandResponseDto  getBrandById(Integer id);
 
-    BrandDto add(Brand brand);
+    BrandResponseDto  add(Brand brand);
 
-    BrandDto update(Brand brand);
+    BrandResponseDto update(Brand brand);
 
     void delete(Integer id);
 

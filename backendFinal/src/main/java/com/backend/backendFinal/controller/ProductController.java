@@ -2,14 +2,16 @@ package com.backend.backendFinal.controller;
 import com.backend.backendFinal.model.dto.BrandDto;
 import com.backend.backendFinal.model.dto.ProductDto;
 import com.backend.backendFinal.model.dto.ProductPropertyDto;
+import com.backend.backendFinal.model.dto.requestDto.ProductRequestDto;
+import com.backend.backendFinal.model.dto.responseDto.ProductResponseDto;
 import com.backend.backendFinal.model.entity.Product;
-import com.backend.backendFinal.model.entity.PropertyType;
 import com.backend.backendFinal.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+
+
 import java.util.List;
-import java.util.Properties;
 
 @RestController
 @RequestMapping("/products")
@@ -18,30 +20,32 @@ public class ProductController {
 
     private final ProductService productService;
 
-    @GetMapping("{id}")
-    public ProductDto getBtId(@PathVariable Integer id){
+    @GetMapping("/{id}")
+    public ProductResponseDto getBtId(@PathVariable Integer id){
         return productService.getById(id);
     }
     @PostMapping
-    public ProductDto add(@RequestBody Product product){
-        return productService.add(product);
+    public ProductResponseDto add(@RequestBody ProductRequestDto productRequestDto){
+        return productService.add(productRequestDto);
     }
     @PutMapping
-    public ProductDto update(@RequestBody Product product){
-        return productService.update(product);
+    public ProductResponseDto update(@RequestBody ProductRequestDto productRequestDto){
+        return productService.update(productRequestDto);
     }
     @DeleteMapping
     public void delete(@RequestParam Integer id){
         productService.delete(id);
     }
     @GetMapping("/brand/{id}")
-    public List<ProductDto> getProductByBrandId(@PathVariable Integer id){
+    public List<ProductResponseDto> getProductByBrandId(@PathVariable Integer id){
         return productService.getProductByBrandId(id);
     }
-    @GetMapping("/category/{id}")
-    public List<ProductDto> getProductByCategoryId(@PathVariable Integer id){
-        return productService.getProductByCategoryId(id);
-    }
+//    @GetMapping("/brand/{id}")
+//    public  ProductDto<List<ProductPropertyDto>> getProductPropertyByProduct(@PathVariable Integer id){
+//        return ProductDto.ok(productService.getProductPropertyByProduct(id));
+//    }
+
+
 
 
 

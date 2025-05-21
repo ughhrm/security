@@ -1,14 +1,13 @@
 package com.backend.backendFinal.service.impl;
 
 import com.backend.backendFinal.mapper.ProductPropertyMapper;
-import com.backend.backendFinal.model.dto.ProductPropertyDto;
+import com.backend.backendFinal.model.dto.requestDto.ProductPropertyRequestDto;
+import com.backend.backendFinal.model.dto.responseDto.ProductPropertyResponseDto;
 import com.backend.backendFinal.model.entity.ProductProperty;
 import com.backend.backendFinal.repository.ProductPropertyRepository;
 import com.backend.backendFinal.service.ProductPropertyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -18,19 +17,28 @@ public class ProductPropertyServiceImpl implements ProductPropertyService {
 
 
     @Override
-    public ProductPropertyDto getById(Integer id) {
-        return productPropertyMapper.toProductPropertyDto(productPropertyRepository.findById(id)
-                .orElseThrow(NullPointerException::new));
+    public ProductPropertyResponseDto getById(Integer id) {
+        ProductProperty productProperty = productPropertyRepository.findById(id).orElseThrow(NullPointerException::new);
+        ProductPropertyResponseDto productPropertyResponseDto =productPropertyMapper.toEntityMapResponseDto(productProperty);
+        return  productPropertyResponseDto;
+
     }
 
     @Override
-    public ProductPropertyDto add(ProductProperty productProperty) {
-        return productPropertyMapper.toProductPropertyDto(productPropertyRepository.save(productProperty));
+    public ProductPropertyResponseDto add(ProductPropertyRequestDto productPropertyRequestDto) {
+        ProductProperty productProperty =productPropertyMapper.toRequestDtoMapEntity(productPropertyRequestDto);
+        productPropertyRepository.save(productProperty);
+        ProductPropertyResponseDto productPropertyResponseDto =productPropertyMapper.toEntityMapResponseDto(productProperty);
+        return  productPropertyResponseDto;
+
     }
 
     @Override
-    public ProductPropertyDto update(ProductProperty productProperty) {
-        return productPropertyMapper.toProductPropertyDto(productPropertyRepository.save(productProperty));
+    public ProductPropertyResponseDto update(ProductPropertyRequestDto productPropertyRequestDto) {
+        ProductProperty productProperty =productPropertyMapper.toRequestDtoMapEntity(productPropertyRequestDto);
+        productPropertyRepository.save(productProperty);
+        ProductPropertyResponseDto productPropertyResponseDto =productPropertyMapper.toEntityMapResponseDto(productProperty);
+        return  productPropertyResponseDto;
     }
 
     @Override
@@ -38,13 +46,9 @@ public class ProductPropertyServiceImpl implements ProductPropertyService {
         productPropertyRepository.deleteById(id);
     }
 
-    @Override
-    public List<ProductPropertyDto> getProductPropertyByProductId(Integer id) {
-        return productPropertyRepository.findByProduct_Id(id).stream().map(productPropertyMapper::toProductPropertyDto).toList();
-    }
 
-    @Override
-    public List<ProductPropertyDto> getProductPropertyByPropertyTypeId(Integer id) {
-        return productPropertyRepository.findByPropertyType_Id(id).stream().map(productPropertyMapper::toProductPropertyDto).toList();
-    }
+//    @Override
+//    public List<ProductPropertyDto> getProductPropertyByPropertyTypeId(Integer id) {
+//        return productPropertyRepository.findByPropertyType_Id(id).stream().map(productPropertyMapper::toProductPropertyDto).toList();
+//    }
 }

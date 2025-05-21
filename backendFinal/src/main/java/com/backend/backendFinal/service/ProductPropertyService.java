@@ -1,20 +1,17 @@
 package com.backend.backendFinal.service;
 
-import com.backend.backendFinal.model.dto.ProductPropertyDto;
-import com.backend.backendFinal.model.entity.ProductProperty;
-
-import java.util.List;
+import com.backend.backendFinal.model.dto.requestDto.ProductPropertyRequestDto;
+import com.backend.backendFinal.model.dto.responseDto.ProductPropertyResponseDto;
 
 public interface ProductPropertyService {
-    ProductPropertyDto getById(Integer id);
+    ProductPropertyResponseDto getById(Integer id);
 
-    ProductPropertyDto add(ProductProperty productProperty);
+    ProductPropertyResponseDto add(ProductPropertyRequestDto productPropertyRequestDto);
 
-    ProductPropertyDto update(ProductProperty productProperty);
+    ProductPropertyResponseDto update(ProductPropertyRequestDto productPropertyRequestDto);
 
     void delete(Integer id);
-    List<ProductPropertyDto> getProductPropertyByProductId(Integer id);
-    List<ProductPropertyDto> getProductPropertyByPropertyTypeId(Integer id);
+//    List<ProductPropertyDto> getProductPropertyByPropertyTypeId(Integer id);
 
 
 }

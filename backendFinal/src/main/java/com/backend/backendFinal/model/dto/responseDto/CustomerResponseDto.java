@@ -1,11 +1,11 @@
-//package com.backend.backendFinal.model.dto;
+//package com.backend.backendFinal.model.dto.responseDto;
 //
 //import lombok.Data;
 //
 //import java.time.LocalDateTime;
 //
 //@Data
-//public class CustomerDto {
+//public class CustomerResponseDto {
 //
 //    private String firstName;
 //

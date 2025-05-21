@@ -1,10 +1,9 @@
 package com.backend.backendFinal.model.entity;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.util.List;
+
 
 @Data
 @Entity

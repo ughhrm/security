@@ -1,3 +1,4 @@
+/*
 package com.backend.backendFinal.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -16,3 +17,4 @@ public class PropertyType {
     @JoinColumn(name = "categories_id", referencedColumnName = "id")
     private Category category;
 }
+*/
