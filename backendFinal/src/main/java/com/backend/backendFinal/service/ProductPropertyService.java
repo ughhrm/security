@@ -3,15 +3,17 @@ package com.backend.backendFinal.service;
 import com.backend.backendFinal.model.dto.requestDto.ProductPropertyRequestDto;
 import com.backend.backendFinal.model.dto.responseDto.ProductPropertyResponseDto;
 
+import java.util.List;
+
 public interface ProductPropertyService {
-    ProductPropertyResponseDto getById(Integer id);
 
-    ProductPropertyResponseDto add(ProductPropertyRequestDto productPropertyRequestDto);
+    ProductPropertyResponseDto create(ProductPropertyRequestDto dto);
 
-    ProductPropertyResponseDto update(ProductPropertyRequestDto productPropertyRequestDto);
+    ProductPropertyResponseDto update(Integer id, ProductPropertyRequestDto dto);
 
     void delete(Integer id);
-//    List<ProductPropertyDto> getProductPropertyByPropertyTypeId(Integer id);
 
+    ProductPropertyResponseDto getById(Integer id);
 
+    List<ProductPropertyResponseDto> getAll();
 }

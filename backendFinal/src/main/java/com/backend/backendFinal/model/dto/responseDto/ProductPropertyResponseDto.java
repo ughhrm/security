@@ -6,7 +6,8 @@ import lombok.Data;
 @Data
 public class ProductPropertyResponseDto {
     private Integer id;
-    private String propertyValue;
+    private String name;
+    private String value;
     private Integer productId;
 
 

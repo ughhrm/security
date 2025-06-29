@@ -3,6 +3,7 @@ package com.backend.backendFinal.model.entity;
 import com.backend.backendFinal.enums.DeliveryMethod;
 import com.backend.backendFinal.enums.PaymentMethod;
 import com.backend.backendFinal.enums.PaymentStatus;
+import com.backend.backendFinal.model.security.User;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
@@ -10,6 +11,8 @@ import lombok.Data;
 import org.apache.commons.lang3.builder.ToStringExclude;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.util.List;
 
 
 @Entity
@@ -22,27 +25,13 @@ public class Order {
     private Integer id;
 
     private Timestamp createTime;
-    private Integer quantity;
 
-    @Enumerated(EnumType.STRING)
-    private DeliveryMethod deliveryMethod;
+    @ManyToOne
+    private User user;
 
-
-    @Enumerated(EnumType.STRING)
-    private PaymentMethod paymentMethod;
-
-    private Integer price;
-
-    @Enumerated(EnumType.STRING)
-    private PaymentStatus paymentStatus;
-
-//    @ManyToOne(cascade = CascadeType.ALL)
-//    @JoinColumn(name = "customer_id", referencedColumnName = "id")
-//    private Customer customer;
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    private List<OrderItem> orderItems;
 
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "product_id", referencedColumnName = "id")
-    private Product product;
 
 }

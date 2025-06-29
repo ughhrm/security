@@ -43,10 +43,7 @@ public class OrderController {
 //    public List<OrderResponseDto> getOrderByCustomerId(@PathVariable Integer id){
 //        return orderService.getOrderByCustomerId(id);
 //    }
-    @GetMapping("/product/{id}")
-    public List<OrderResponseDto> getOrderByProductId(@PathVariable Integer id){
-        return orderService.getOrderByProductId(id);
-    }
 
-    
+
+
 }

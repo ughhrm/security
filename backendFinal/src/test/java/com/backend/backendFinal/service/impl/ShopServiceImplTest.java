@@ -17,46 +17,45 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
 class ShopServiceImplTest {
-    @InjectMocks
-    ShopServiceImpl shopService;
-    @Mock
-    ShopRepository shopRepository;
-    @Mock
-    ShopMapper shopMapper;
-
-    private Shop shop;
-    private ShopDto shopDto;
-
-    @BeforeEach
-    void setUp() {
-        shop = new Shop();
-        shop.setId(1);
-        shop.setAddress("Baku");
-
-        shopDto= new ShopDto();
-        shopDto.setId(1);
-        shopDto.setAddress("Baku");
-
-
-    }
-
-    @AfterEach
-    void tearDown() {
-    }
-
-    @Test
-    void getShopById() {
-    }
-
-    @Test
-    void add() {
-    }
-
-    @Test
-    void update() {
-    }
-
-    @Test
-    void delete() {
-    }
+//    @InjectMocks
+//    ShopServiceImpl shopService;
+//    @Mock
+//    ShopRepository shopRepository;
+//    @Mock
+//    ShopMapper shopMapper;
+//
+//
+//
+//    @BeforeEach
+//    void setUp() {
+//        shop = new Shop();
+//        shop.setId(1);
+//        shop.setAddress("Baku");
+//
+//        shopDto= new ShopDto();
+//        shopDto.setId(1);
+//        shopDto.setAddress("Baku");
+//
+//
+//    }
+//
+//    @AfterEach
+//    void tearDown() {
+//    }
+//
+//    @Test
+//    void getShopById() {
+//    }
+//
+//    @Test
+//    void add() {
+//    }
+//
+//    @Test
+//    void update() {
+//    }
+//
+//    @Test
+//    void delete() {
+//    }
 }

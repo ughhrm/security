@@ -13,13 +13,12 @@ public class ProductProperty {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private String propertyValue;
+    private String name;
+    @Column(name = "property_value")
+    private String value;
 
-    @ManyToMany(mappedBy = "productProperties")
-    private List<Product> products;
+    @ManyToOne
+    @JoinColumn(name = "product_id")
+    private Product product;
 
-
-//    @ManyToOne
-//    @JoinColumn(name = "property_type_id", referencedColumnName = "id")
-//    private PropertyType propertyType;
 }

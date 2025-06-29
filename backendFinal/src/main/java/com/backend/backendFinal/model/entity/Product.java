@@ -1,5 +1,6 @@
 package com.backend.backendFinal.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import java.util.List;
@@ -15,13 +16,27 @@ public class Product {
     private String name;
     private Integer price;
 
-    @ManyToMany
-    @JoinTable(name = "product_productProperty", joinColumns = @JoinColumn(name = "product_id"), inverseJoinColumns = @JoinColumn(name = "productProperty_id"))
-    private List<ProductProperty> productProperties;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "brand_id", referencedColumnName ="id")
+    @ManyToOne
+    @JoinColumn(name = "brand_id")
     private Brand brand;
+
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
+
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ProductProperty> properties;
+
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL,fetch =FetchType.LAZY)
+    private List<Basket> basketItems;
+
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL,fetch =FetchType.LAZY)
+    private List<OrderItem> orderItems;
+
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL,fetch =FetchType.LAZY)
+    private List<Wishlist> wishlists;
+
 
 
 

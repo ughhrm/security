@@ -1,5 +1,9 @@
 package com.backend.backendFinal.model.security;
 
+import com.backend.backendFinal.model.Role;
+import com.backend.backendFinal.model.entity.Basket;
+import com.backend.backendFinal.model.entity.Order;
+import com.backend.backendFinal.model.entity.Wishlist;
 import jakarta.persistence.*;
 import lombok.*;
 import org.apache.commons.lang3.builder.EqualsExclude;
@@ -9,8 +13,8 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Set;
-
 @Getter
 @Setter
 @AllArgsConstructor
@@ -25,17 +29,21 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     private Integer id;
+
+    @Column(nullable = false)
     private String password;
+
+    @Column(nullable = false, unique = true)
     private String username;
     private boolean isAccountNonExpired;
     private boolean isAccountNonLocked;
     private boolean isCredentialsNonExpired;
     private boolean isEnabled;
-    private String issueToken;
     private String firstName;
 
     private String lastName;
 
+    @Column(unique = true)
     private String email;
 
     private String phone;
@@ -50,10 +58,20 @@ public class User implements UserDetails {
     private LocalDateTime updatedAt;
 
 
+    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
+    @JoinTable(name = "authorities", joinColumns = @JoinColumn(name = "user_id"))
+    @Column(name = "role", nullable = false)
+    @Enumerated(value = EnumType.STRING)
+    private Set<Role> authorities;
 
-    @ToString.Exclude
-    @EqualsExclude
-    @OneToMany( mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private Set<Authority> authorities;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Order> orders;
+
+    @OneToMany(mappedBy = "user")
+    private List<Basket> basketItems;
+
+    @OneToMany(mappedBy = "user")
+    private List<Wishlist> wishlists;
+
 
 }

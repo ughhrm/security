@@ -49,9 +49,4 @@ public class OrderServiceImpl implements OrderService {
 //        return orderRepository.findByCustomerId(id).stream().map(orderMapper::toEntityMapResponseDto).toList();
 //    }
 
-    @Override
-    public List<OrderResponseDto> getOrderByProductId(Integer id) {
-        return orderRepository.findByProductId(id).stream().map(orderMapper::toEntityMapResponseDto).toList();
-
-    }
 }

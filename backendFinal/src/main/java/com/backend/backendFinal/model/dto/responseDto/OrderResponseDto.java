@@ -7,24 +7,12 @@ import com.backend.backendFinal.model.entity.Product;
 import lombok.Data;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 @Data
 public class OrderResponseDto {
     private Integer id;
-
+    private Integer userId;
     private Timestamp createTime;
-
-    private Integer quantity;
-
-    private DeliveryMethod deliveryMethod;
-
-    private PaymentMethod paymentMethod;
-
-    private Integer price;
-
-    private PaymentStatus paymentStatus;
-
-//    private Customer customer;
-
-    private Product product;
+    private List<OrderItemResponseDto> orderItems;
 }

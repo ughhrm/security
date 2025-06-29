@@ -9,9 +9,7 @@ import org.mapstruct.Mapper;
 @Mapper(componentModel = "spring")
 public interface CategoryMapper {
 
-//    Brand toRequestDtoMapEntity(BrandRequestDto brandRequestDto);
-//
-//    BrandResponseDto toEntityMapResponseDto(Brand brand);
+
     Category toRequestDtoMapEntity(CategoryRequestDto categoryRequestDto);
     CategoryResponseDto toEntityMapResponseDto(Category category);
 

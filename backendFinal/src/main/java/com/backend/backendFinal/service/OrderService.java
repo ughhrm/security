@@ -13,8 +13,6 @@ public interface OrderService {
     OrderResponseDto add(Order order );
     OrderResponseDto update(Order order );
     void delete(Integer id);
-//    List<OrderResponseDto> getOrderByCustomerId(Integer id);
-    List<OrderResponseDto> getOrderByProductId(Integer id);
 
 
 }

@@ -1,27 +1,18 @@
 package com.backend.backendFinal.jwt;
 
-import com.backend.backendFinal.model.security.Authority;
-import com.backend.backendFinal.model.security.User;
 import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import jakarta.annotation.PostConstruct;
-import jdk.dynalink.linker.LinkerServices;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.web.config.EnableSpringDataWebSupport;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.security.Key;
-import java.time.Duration;
-import java.time.Instant;
-import java.util.Base64;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 @Slf4j
@@ -37,29 +28,52 @@ public class JwtService {
 
     }
 
-    public String issueToken(User user) {
-        List<String> authorities = user
-                .getAuthorities()
-                .stream()
-                .map(Authority::getAuthority)
-                .toList();
+    public String generateToken(String userName) {
+        Map<String,Object> claims = new HashMap<>();
+        return createToken(claims , userName);
 
 
-        final JwtBuilder jwtBuilder = Jwts.builder()
-                .setSubject(user.getUsername())
-                .setIssuedAt(new Date())
-                .setExpiration(Date.from(Instant.now().plus(Duration.ofSeconds(6000))))
-                .addClaims(Map.of("roles", authorities))
-                .setHeader(Map.of("type", "JWT"))
-                .signWith(secretKey(), SignatureAlgorithm.HS256);
-        return jwtBuilder.compact();
+
+    }
+    public Boolean validateToken(String token, UserDetails userDetails){
+        String username = extractUser(token);
+        Date expirationDate = extractExpiration(token);
+        return userDetails.getUsername().equals(username) && !expirationDate.before(new Date());
+
+
     }
 
-    public Claims verifyToken(String token) {
-        return Jwts.parserBuilder()
+    public String extractUser(String token){
+        Claims claims = Jwts
+                .parserBuilder()
                 .setSigningKey(secretKey())
                 .build()
                 .parseClaimsJws(token)
                 .getBody();
+        return claims.getSubject();
+
+
     }
+    private Date extractExpiration(String token){
+        Claims claims = Jwts
+                .parserBuilder()
+                .setSigningKey(secretKey())
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
+        return claims.getExpiration();
+
+
+    }
+
+    private String  createToken(Map<String, Object> claims, String userName){
+        return Jwts.builder()
+                .setClaims(claims)
+                .setSubject(userName)
+                .setIssuedAt(new Date(System.currentTimeMillis()))
+                .setExpiration(new Date(System.currentTimeMillis() + 1000L * 60 * 60 * 24 * 30))
+                .signWith(secretKey(), SignatureAlgorithm.HS256)
+                .compact();
+    }
+
 }
